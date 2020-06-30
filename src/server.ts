@@ -1,17 +1,15 @@
 import express from 'express'
-import session from 'express-session'
-import passport from 'passport'
+// import session from 'express-session'
+// import passport from 'passport'
 import api from './routes/api'
-import cors from 'cors'
-import auth from './config/auth'
+// import cors from 'cors'
+// import auth from './config/auth'
 
 const app = express()
 
-app.use(express.static('public'))
+// app.use(express.static('public'))
 
-app.listen(process.env.PORT || 8080 () => {
-    console.log('tudo tranquileba')
-})
+app.listen(process.env.PORT || 8080)
 
 // auth(passport)
 // app.use(
@@ -25,6 +23,6 @@ app.listen(process.env.PORT || 8080 () => {
 // app.use(passport.session())
 // app.use(cors())
 // app.use(express.json())
-// app.use(api)
+app.use(api)
 
 app.listen(8000)
