@@ -7,16 +7,16 @@ import auth from './config/auth'
 
 const app = express()
 
-auth(passport)
-app.use(
-    session({
-        secret: 'call-manager',
-        resave: false,
-        saveUninitialized: false
-    })
-)
-app.use(passport.initialize())
-app.use(passport.session())
+// auth(passport)
+// app.use(
+//     session({
+//         secret: 'call-manager',
+//         resave: false,
+//         saveUninitialized: false
+//     })
+// )
+// app.use(passport.initialize())
+// app.use(passport.session())
 app.use(cors())
 app.use(express.json())
 app.use(api)

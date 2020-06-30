@@ -14,7 +14,7 @@ api.post('/login', AuthController.login)
 api.post('/sign-up', UserController.create, AuthController.login)
 api.post('/forgot', AuthController.forgotPassword)
 api.post('/logout', AuthController.logout)
-api.get('/logado', verifyAuthentication, (req, res) => {
+api.get('/logado', /*verifyAuthentication,*/ (req, res) => {
     res.json('tá logado bicho')
 })
 api.get('/status', verifyAuthentication, StatusController.all)
