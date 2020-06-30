@@ -4,6 +4,7 @@
   "description": "call manager",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node-dev src/server.ts",
     "dev": "ts-node-dev src/server.ts",
     "knex:seed": "knex --knexfile knexfile.ts seed:run",
     "knex:migrate": "npx knex --knexfile knexfile.ts migrate:latest"
