@@ -21,4 +21,4 @@ app.use(cors())
 app.use(express.json())
 app.use(api)
 
-app.listen(3333)
+app.listen(8000)
