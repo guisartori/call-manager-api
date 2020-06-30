@@ -7,6 +7,12 @@ import auth from './config/auth'
 
 const app = express()
 
+app.use(express.static('public'))
+
+app.listen(process.env.PORT || 8080 () => {
+    console.log('tudo tranquileba')
+})
+
 // auth(passport)
 // app.use(
 //     session({
@@ -17,8 +23,8 @@ const app = express()
 // )
 // app.use(passport.initialize())
 // app.use(passport.session())
-app.use(cors())
-app.use(express.json())
-app.use(api)
+// app.use(cors())
+// app.use(express.json())
+// app.use(api)
 
 app.listen(8000)
