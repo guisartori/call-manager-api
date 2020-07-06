@@ -11,7 +11,7 @@ import sendSuccess from '../helpers/sendSuccess'
 
 const api = express.Router()
 
-api.post('/', (req, res) => {
+api.get('/', (req, res) => {
     return res.json(sendSuccess('Bem vindo ao sistema'))
 })
 api.post('/login', AuthController.login)
