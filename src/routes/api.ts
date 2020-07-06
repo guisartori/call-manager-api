@@ -12,7 +12,7 @@ import sendSuccess from '../helpers/sendSuccess'
 const api = express.Router()
 
 api.get('/', (req, res) => {
-    return res.json(sendSuccess('Bem vindo ao sistema'))
+    return res.json(sendSuccess('Bem vindo ao sistema, agora tá funcionando como deveria'))
 })
 api.post('/login', AuthController.login)
 api.post('/sign-up', UserController.create, AuthController.login)
