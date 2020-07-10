@@ -4,8 +4,8 @@
     "description": "call manager",
     "main": "index.js",
     "scripts": {
-        "start": "ts-node-dev src/server.ts",
-        "dev": "ts-node-dev src/server.ts",
+        "start": "ts-node src/index.ts",
+        "dev": "ts-node-dev src/index.ts",
         "knex:seed": "knex --knexfile knexfile.ts seed:run",
         "knex:migrate": "npx knex --knexfile knexfile.ts migrate:latest"
     },
@@ -34,14 +34,19 @@
         "express": "^4.17.1",
         "express-session": "^1.17.1",
         "knex": "^0.21.1",
-        "mysql": "^2.18.1",
+        "mysql": "^2.14.1",
         "nodemailer": "^6.4.10",
         "passport": "^0.4.1",
         "passport-local": "^1.0.0",
-        "reflect-metadata": "^0.1.13",
+        "reflect-metadata": "^0.1.10",
         "ts-node": "^8.10.2",
         "ts-node-dev": "^1.0.0-pre.49",
-        "typeorm": "^0.2.25",
+        "typeorm": "0.2.25",
         "typescript": "^3.9.5"
+    },
+    "devDependencies": {
+        "ts-node": "3.3.0",
+        "@types/node": "^8.0.29",
+        "typescript": "3.3.3333"
     }
 }
