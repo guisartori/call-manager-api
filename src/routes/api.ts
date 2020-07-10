@@ -26,8 +26,8 @@ api.post('/project', /* verifyAuthentication, */ ProjectController.create, UserP
 api.get('/project', /* verifyAuthentication, */ ProjectController.all)
 api.post('/functionality', verifyAuthentication, FunctionalityController.create)
 api.get('/functionality', verifyAuthentication, FunctionalityController.all)
-api.get('/call', verifyAuthentication, CallController.all)
-api.post('/call', verifyAuthentication, CallController.create)
+api.get('/call', /* verifyAuthentication, */ CallController.all)
+api.post('/call',/* verifyAuthentication, */ CallController.create)
 api.get('/call/:id', verifyAuthentication, CallController.details)
 
 export default api

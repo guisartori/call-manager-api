@@ -4,6 +4,7 @@ import passport from 'passport'
 import api from './routes/api'
 import cors from 'cors'
 import auth from './config/auth'
+import 'reflect-metadata'
 
 const app = express()
 

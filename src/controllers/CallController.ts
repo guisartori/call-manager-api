@@ -8,12 +8,13 @@ class CallController {
 
     static create = async (request: Request, response: Response) => {
         const { title,
-            description, 
-            functionality_id, 
-            responsable_id, 
-            creator_id, 
+            description,
+            functionality_id,
+            responsable_id,
+            creator_id,
             project_id } = request.body
 
+        try {
             const callId = await knex<Call>('calls').insert({
                 title,
                 description,
@@ -22,17 +23,27 @@ class CallController {
                 creator_id,
                 project_id
             })
-
             CallCommitsController.create(description, creator_id, 1)
-
             return response.json(callId)
+        } catch (error) {
+            return response.json(error)
+        }
+
+
+
     }
 
     static all = async (request: Request, response: Response) => {
         const { project_id } = request.query
-        const allCalls = await knex<Call>('calls').select().where('project_id', String(project_id))
+        const allCalls = await knex<Call>()
+            .select('c.title', 'c.description', 'f.name AS functionality', 'u.name AS responsable')
+            .from('calls AS c')
+            .leftJoin('functionalities AS f', 'c.functionality_id', 'f.id')
+            .leftJoin('users AS u', 'c.responsable_id', 'u.id')
+            .where('c.project_id', String(project_id))
+        // console.log(project_id)
         // const callsFormated = allCalls.map(call => {
-        //     call.commits = 
+        //     call.commits =
         // })
         //TODO: COLOCAR OS COMMITS EM CADA CALL
         return response.json(allCalls)
