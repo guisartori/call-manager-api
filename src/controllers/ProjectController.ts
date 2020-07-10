@@ -1,5 +1,4 @@
-import { Response, Request, NextFunction } from "express"
-import knex from '../database/connection'
+import { Response, Request } from "express"
 import { Connection } from "typeorm"
 import { Project } from "../entity/Project"
 import path from 'path'
@@ -8,8 +7,7 @@ class ProjectController {
 
     static create = async (
         req: Request,
-        res: Response,
-        conn: Connection
+        res: Response
     ) => {
         const { title } = req.body
         const project = new Project()
@@ -36,9 +34,9 @@ class ProjectController {
 
     static all = async (req: Request, res: Response, conn: Connection) => {
         // const userId = request.user?.[0].id
-        const projectRepo = conn.getRepository(Project)
+        const repo = conn.getRepository(Project)
         try {
-            const projects = await projectRepo.find()
+            const projects = await repo.find()
             return res.json(projects)
 
         } catch (error) {

@@ -28,19 +28,26 @@ const route = (conn: Connection) => {
 
     api.post('/project',
         /* verifyAuthentication, */
-        (req, res, next) => {
-            ProjectController.create(req, res, conn)
-        })
-    api.get('/project',
+        ProjectController.create)
+
+    api.get('/projects',
         /* verifyAuthentication, */
         (req, res) => {
             ProjectController.all(req, res, conn)
         })
 
+    api.get('/calls/:projectId',
+        /* verifyAuthentication, */
+        (req, res) => {
+            CallController.getCallsByProjectId(req, res, conn)
+        })
+
+    api.post('/call',
+        /* verifyAuthentication, */
+        CallController.create)
+
     // api.post('/functionality', verifyAuthentication, FunctionalityController.create)
     // api.get('/functionality', verifyAuthentication, FunctionalityController.all)
-    // api.get('/call', /* verifyAuthentication, */ CallController.all)
-    // api.post('/call',/* verifyAuthentication, */ CallController.create)
     // api.get('/call/:id', verifyAuthentication, CallController.details)
 
     return api
