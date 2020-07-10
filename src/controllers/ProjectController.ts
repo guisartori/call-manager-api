@@ -1,62 +1,60 @@
 import { Response, Request, NextFunction } from "express"
 import knex from '../database/connection'
-import Project from "../models/Project"
-import Knex from "knex"
+import { Connection } from "typeorm"
+import { Project } from "../entity/Project"
+import path from 'path'
 
 class ProjectController {
 
-    static create = async (request: Request, response: Response, next: NextFunction) => {
-        const { title, user_id } = request.body
-        const project_id = await knex<Project>('projects').insert({ title })
-        request.body = { user_id, project_id: project_id[0] }
-        // response.json(request.body)
-        next()
+    static create = async (
+        req: Request,
+        res: Response,
+        conn: Connection
+    ) => {
+        const { title } = req.body
+        const project = new Project()
+        project.title = title
+        try {
+            await project.save()
+            return res.status(201).json({ msg: "Projeto criado com sucesso!" })
+
+        } catch (error) {
+
+            const fileName = path.basename(__filename)
+            const route = req.path
+            const method = req.method
+
+            res.status(500).json({
+                error,
+                fileName,
+                route,
+                method
+            })
+
+        }
     }
 
-    static all = async (request: Request, response: Response) => {
+    static all = async (req: Request, res: Response, conn: Connection) => {
         // const userId = request.user?.[0].id
-        const userId = 1
-
-        //TODO: COLOCAR NO RETORNO: QTD NOVOS CALLS E PERCENT CONCLUIDO
+        const projectRepo = conn.getRepository(Project)
         try {
+            const projects = await projectRepo.find()
+            return res.json(projects)
 
-            const projects =
-                await knex({ p: 'projects' })
-                    .select('p.id', 'p.title', { total_new_calls: 1 })
-                    .count({ total_calls: 'c.id' })
-                    .groupBy('p.id', 'p.title', 'total_new_calls')
-                    .leftJoin({ up: 'users_projects' }, 'up.project_id', 'p.id')
-                    .leftJoin({ c: 'calls' }, 'c.project_id', 'p.id')
-                    .where({ 'up.user_id': Number(userId) })
+        } catch (error) {
 
+            const fileName = path.basename(__filename)
+            const route = req.path
+            const method = req.method
+            res.status(500).json({
+                error,
+                fileName,
+                route,
+                method
+            })
 
-            return response.json(projects)
-        } catch (err) {
-            return response.json({ error: err })
         }
 
-
-        // let itemsProcessed = 0;
-
-        // allProjects.map(async (project, i, arr) => {
-        //     const calls = await knex('calls as c')
-        //         .leftJoin('call_commits as cc', 'c.id', 'cc.call_id')
-        //         .where('c.project_id', project.id)
-        //         // .where('c.new', 1)
-        //         .count('* as counter_new_calls')
-        //         .select('')
-        //         .first()
-
-        //     allProjects[i].counter_new_calls = Number(calls?.counter_new_calls)
-        //     itemsProcessed++
-        //     if (itemsProcessed === arr.length) {
-        //         callback();
-        //     }
-        // response.json(allProjects)
-        // })
-
-
-        // const callback = () => { return response.json(allProjects) }
     }
 
 }
