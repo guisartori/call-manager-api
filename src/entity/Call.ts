@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, BaseEntity } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, BaseEntity, OneToOne, JoinColumn } from "typeorm"
 import { Project } from "./Project"
+import { Functionality } from "./Functionality"
 
 @Entity("calls")
 export class Call extends BaseEntity {
@@ -21,6 +22,10 @@ export class Call extends BaseEntity {
 
     // @Column()
     // creator_id: number
+
+    @OneToOne(type => Functionality)
+    @JoinColumn()
+    functionality: Functionality;
 
     @ManyToOne(type => Project, project => project.calls)
     project: Project

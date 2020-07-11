@@ -42,9 +42,21 @@ const route = (conn: Connection) => {
             CallController.getCallsByProjectId(req, res, conn)
         })
 
+
     api.post('/call',
         /* verifyAuthentication, */
         CallController.create)
+
+    api.post('/functionality',
+        /* verifyAuthentication, */
+        FunctionalityController.create)
+
+    api.get('/functionalities/:projectId',
+        /* verifyAuthentication, */
+        (req, res) => {
+            FunctionalityController.getFunctionalitiesByProjectId(req, res, conn)
+        })
+
 
     // api.post('/functionality', verifyAuthentication, FunctionalityController.create)
     // api.get('/functionality', verifyAuthentication, FunctionalityController.all)
