@@ -1,14 +1,10 @@
 import { Request, Response } from 'express'
-import knex from '../database/connection'
 import { Connection } from 'typeorm'
 import { Functionality } from '../entity/Functionality'
 import path from 'path'
 
 class FunctionalityController {
-    static create = async (
-        req: Request,
-        res: Response
-    ) => {
+    static create = async (req: Request, res: Response) => {
         const { name, projectId } = req.body
         const functionality = new Functionality()
         functionality.name = name

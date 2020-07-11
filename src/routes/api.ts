@@ -1,15 +1,15 @@
 import express from 'express'
-import UserController from '../controllers/UserController'
-import AuthController from '../controllers/AuthController'
-import StatusController from '../controllers/StatusController'
-import verifyAuthentication from '../middlewares/Auth'
+// import UserController from '../controllers/UserController'
+// import AuthController from '../controllers/AuthController'
+// import StatusController from '../controllers/StatusController'
+// import verifyAuthentication from '../middlewares/Auth'
 import ProjectController from '../controllers/ProjectController'
-import UserProjectController from '../controllers/UserProjectController'
+// import UserProjectController from '../controllers/UserProjectController'
 import FunctionalityController from '../controllers/FunctionalityController'
 import CallController from '../controllers/CallController'
 import sendSuccess from '../helpers/sendSuccess'
 import { Connection } from 'typeorm'
-import { Call } from '../entity/Call'
+import CommitController from '../controllers/CommitController'
 
 const route = (conn: Connection) => {
     const api = express.Router()
@@ -57,6 +57,9 @@ const route = (conn: Connection) => {
             FunctionalityController.getFunctionalitiesByProjectId(req, res, conn)
         })
 
+    api.post('/commit',
+        /* verifyAuthentication, */
+        CommitController.create)
 
     // api.post('/functionality', verifyAuthentication, FunctionalityController.create)
     // api.get('/functionality', verifyAuthentication, FunctionalityController.all)

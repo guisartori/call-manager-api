@@ -14,13 +14,13 @@ class CallController {
         const { projectId } = req.params
         const repo = conn.getRepository(Call)
 
-
-
         try {
 
             const calls = await repo
                 .createQueryBuilder("c")
                 .leftJoinAndSelect("c.project", "project")
+                .leftJoinAndSelect("c.functionality", "functionality")
+                .leftJoinAndSelect("c.commits", "commits")
                 .where({ "project": projectId })
                 .getMany()
 
