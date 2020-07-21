@@ -2,6 +2,7 @@ import { Response, Request } from "express"
 import { Connection } from "typeorm"
 import { Project } from "../entity/Project"
 import path from 'path'
+import { Call } from "../entity/Call"
 
 class ProjectController {
 
@@ -36,13 +37,22 @@ class ProjectController {
         // const userId = request.user?.[0].id
         const repo = conn.getRepository(Project)
         try {
-            const projects = await repo.find()
+            const projects = await repo.find({ relations: ['calls', 'calls.commits'] })
+
             const formattedProjects = projects.map(project => {
+
+                const allNewCalls = project.calls.filter(call => {
+                    if (call.commits.length === 0)
+                        return call
+                })
+
+                const totalNewCall = allNewCalls.length
+
                 return {
                     project_id: project.id,
-                    total_new_calls: 0,
+                    total_new_calls: totalNewCall,
                     project_name: project.title,
-                    percentual: 100
+                    percentual: totalNewCall / project.calls.length | 1
                 }
             })
             return res.json(formattedProjects)

@@ -24,7 +24,17 @@ class CallController {
                 .where({ "project": projectId })
                 .getMany()
 
-            return res.json(calls)
+            const formattedCalls = calls.map(call => {
+                return {
+                    call_id: call.id,
+                    call_title: call.title,
+                    call_creator_name: "Guilherme Sartori",
+                    functionality_name: "Tela de login",
+                    call_description: call.description
+                }
+            })
+
+            return res.json(formattedCalls)
 
         } catch (error) {
 
@@ -53,21 +63,21 @@ class CallController {
             functionality
         } = req.body
 
-        let functionalityId = functionality.value
+        // let functionalityId = functionality.value
 
-        if (functionality.__isNew__) {
-            const newFunc = new Functionality()
-            newFunc.name = functionality.value
-            newFunc.project = projectId
+        // if (functionality.__isNew__) {
+        //     const newFunc = new Functionality()
+        //     newFunc.name = functionality.value
+        //     newFunc.project = projectId
 
-            functionalityId = await newFunc.save().then(func => func.id)
-        }
+        //     functionalityId = await newFunc.save().then(func => func.id)
+        // }
 
         const call = new Call()
         call.title = title
         call.description = description
         call.project = projectId
-        call.functionality = functionalityId
+        // call.functionality = functionalityId
 
         try {
             call.save()
