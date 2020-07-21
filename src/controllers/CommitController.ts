@@ -5,11 +5,12 @@ import { Status } from '../entity/Status';
 
 class CommitController {
     static create = async (req: Request, res: Response) => {
-        const { comment, callId, status } = req.body
+        const { comment, callId, fromStatus, toStatus } = req.body
         const commit = new Commit()
         commit.comment = comment
         commit.call = callId
-        commit.status = Status(status)
+        commit.fromStatus = Status(fromStatus)
+        commit.toStatus = Status(toStatus)
         try {
             await commit.save()
             return res.json({ msg: 'Comentário adicionado com sucesso!' }).status(201)

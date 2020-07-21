@@ -14,5 +14,8 @@ export class Commit extends BaseEntity {
     call: Call
 
     @Column({ length: 10 })
-    status: string
+    fromStatus: string
+
+    @Column({ length: 10 })
+    toStatus: string
 }

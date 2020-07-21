@@ -37,7 +37,15 @@ class ProjectController {
         const repo = conn.getRepository(Project)
         try {
             const projects = await repo.find()
-            return res.json(projects)
+            const formattedProjects = projects.map(project => {
+                return {
+                    project_id: project.id,
+                    total_new_calls: 0,
+                    project_name: project.title,
+                    percentual: 100
+                }
+            })
+            return res.json(formattedProjects)
 
         } catch (error) {
 
