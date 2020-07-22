@@ -2,7 +2,6 @@ import { Request, Response } from "express"
 import { Connection } from "typeorm"
 import path from 'path'
 import { Call } from "../entity/Call"
-import { Functionality } from "../entity/Functionality"
 
 class CallController {
 
@@ -21,6 +20,7 @@ class CallController {
                 .leftJoinAndSelect("c.project", "project")
                 .leftJoinAndSelect("c.functionality", "functionality")
                 .leftJoinAndSelect("c.commits", "commits")
+                .orderBy('commits.id', 'DESC')
                 .where({ "project": projectId })
                 .getMany()
 
@@ -30,7 +30,8 @@ class CallController {
                     call_title: call.title,
                     call_creator_name: "Guilherme Sartori",
                     functionality_name: "Tela de login",
-                    call_description: call.description
+                    call_description: call.description,
+                    commits: call.commits
                 }
             })
 

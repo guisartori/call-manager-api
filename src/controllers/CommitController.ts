@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { Commit } from '../entity/Commit';
 import path from 'path'
-import { Status } from '../entity/Status';
 
 class CommitController {
     static create = async (req: Request, res: Response) => {
@@ -9,8 +8,8 @@ class CommitController {
         const commit = new Commit()
         commit.comment = comment
         commit.call = callId
-        commit.fromStatus = Status(fromStatus)
-        commit.toStatus = Status(toStatus)
+        commit.fromStatus = fromStatus
+        commit.toStatus = toStatus
         try {
             await commit.save()
             return res.json({ msg: 'Comentário adicionado com sucesso!' }).status(201)

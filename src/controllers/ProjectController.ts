@@ -2,7 +2,6 @@ import { Response, Request } from "express"
 import { Connection } from "typeorm"
 import { Project } from "../entity/Project"
 import path from 'path'
-import { Call } from "../entity/Call"
 
 class ProjectController {
 
@@ -52,7 +51,7 @@ class ProjectController {
                     project_id: project.id,
                     total_new_calls: totalNewCall,
                     project_name: project.title,
-                    percentual: totalNewCall / project.calls.length | 1
+                    percentual: (totalNewCall / project.calls.length) * 100
                 }
             })
             return res.json(formattedProjects)
