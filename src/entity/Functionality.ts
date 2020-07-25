@@ -1,5 +1,6 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm";
 import { Project } from "./Project";
+import { Call } from "./Call";
 
 @Entity("functionalities")
 export class Functionality extends BaseEntity {

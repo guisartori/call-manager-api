@@ -15,22 +15,13 @@ export class Call extends BaseEntity {
     @Column("text")
     description: string
 
-    // @Column()
-    // functionality_id: number
-
-    // @Column()
-    // responsable_id: number
-
-    // @Column()
-    // creator_id: number
-
-    @OneToOne(type => Functionality)
-    @JoinColumn()
-    functionality: Functionality;
-
     @ManyToOne(type => Project, project => project.calls)
     project: Project
 
     @OneToMany(type => Commit, commit => commit.call)
     commits: Commit[]
+
+    @OneToOne(type => Functionality)
+    @JoinColumn()
+    functionality: Functionality;
 }
