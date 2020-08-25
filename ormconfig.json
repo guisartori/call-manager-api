@@ -1,21 +1,15 @@
 {
     "type": "mysql",
-    "host": "localhost",
+    "host": "qn0cquuabmqczee2.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "port": 3306,
-    "username": "root",
-    "password": "",
-    "database": "call_manager",
+    "username": "mf5p88oiadh0t39t",
+    "password": "jx289v57r4a7bhaz",
+    "database": "wh8569cmemhjz2ae",
     "synchronize": true,
     "logging": false,
-    "entities": [
-        "src/entity/*.ts"
-    ],
-    "migrations": [
-        "src/migration/**/*.ts"
-    ],
-    "subscribers": [
-        "src/subscriber/**/*.ts"
-    ],
+    "entities": ["src/entity/*.ts"],
+    "migrations": ["src/migration/**/*.ts"],
+    "subscribers": ["src/subscriber/**/*.ts"],
     "cli": {
         "entitiesDir": "src/entity",
         "migrationsDir": "src/migration",
